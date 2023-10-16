@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #ffffff;
+  overflow-x: hidden;
+}
+
+h1 {
+  text-align: center;  
+}
+
+input {
+  padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  font-family: Raleway;
+  border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+  padding: 20px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 17px;
+  font-family: Raleway;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;  
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #4CAF50;
+}
+</style>
+<body>
+<div class="container">
+<form id="regForm" action="/action_page.php">
+ 
+  <div class="tab">
+    <h4>Which Form Should You Complete?</h4>
+    <p>Please answer the following question to determine which form you should complete: The "short" form or the "long" form. *
+</p>
+    <div class="row validationReq" id="sec1" >
+        <div class="form-group">
+            <label class="questionLabel">What is your full name? <span class="error">*</span> </label>
+            <input type="text" class="form-control required" name="fullname" required>
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">What is your most up to date mobile number? <span class="error">*</span></label>
+            <input type="text" class="form-control required" name="mobile" required>
+        </div>
+    </div>
+  </div>
+  <div class="tab">    
+    <div class="row validationReq" id="sec3">
+      <h2 class="text-center">SHORT FORM</h2>
+      <p>The short form is to be completed for the following reasons:</p>
+      <ul>
+        <li>You had a repeat client that is already in touch with the case worker.</li>
+        <li>You had some sort of interaction on the helpline, but it did not warrant a full report, such as a volunteer inquiry. </li>
+        <li> For ALL "hang up"  or "spam" calls, and/or calls that do not fit Shamsaha's mandate, and thus none of the questions were relevant, such as someone wanting a new job or visa.</li>
+        <li>If you had problems with any part of your shift, or if you need to inform us of anything additional information.</li>
+      </ul>
+        <div class="form-group">
+            <label for="exampleInputPassword1" class="questionLabel">Was this client a repeat client or an administrative inquiry? <span class="error">*</span></label>
+            <label class="container2">Repeat client or caller
+                <input type="radio" name="repeat_client_r_admin_inquiry" class="required" value="Repeat client or caller"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Administrative inquiry or other
+                <input type="radio" name="repeat_client_r_admin_inquiry" class="required" value="Administrative inquiry"><span class="checkmark2"></span>
+            </label>
+        </div>
+      </div>
+  </div>
+
+  <div class="tab"> 
+
+  <div id="normalSection">  
+    <div class="row validationReq" id="normalSection1">
+        <div class="form-group">
+            <label class="questionLabel">What was the name of the caller? <span class="error">*</span></label>
+            <input type="text" class="form-control required" name="caller_name">
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">What was the caller's phone number? <span class="error">*</span></label>
+            <input type="text" class="form-control required" name="caller_phone_num">
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">Why was she calling? <span class="error">*</span></label>
+            <input type="text" class="form-control required" name="why_she_call">
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">Any notes or further details you think we should know?</label>
+            <input type="text" class="form-control" name="further_details">
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">Did this case require payment for anything (taxi, hotel, food, etc)? <span class="error">*</span></label>
+            <label class="container2">Yes
+                <input type="radio" class='required' name="did_case_req_payment" value="Yes"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">No
+                <input type="radio" class='required' name="did_case_req_payment" value="No"><span class="checkmark2"></span>
+            </label>
+        </div>
+      </div>
+      <div class="row" id="paymentSection" style="display: none;">
+         <h4>Payment details</h4>
+         <p>Please complete this section if this case required payments of any type.</p>
+        <div class="form-group">
+            <label class="questionLabel">What services/items were paid for? <span class="error">*</span></label>
+            <label class="container2">Food
+                <input type="checkbox" name="service_r_item_paid_for[]" class="required" value="Food"><span class="checkmark"></span>
+            </label>
+            <label class="container2">Taxi
+                <input type="checkbox" name="service_r_item_paid_for[]" class="required" value="Taxi"><span class="checkmark"></span>
+            </label>
+            <label class="container2">Hotel
+                <input type="checkbox" name="service_r_item_paid_for[]" class="required" value="Hotel"><span class="checkmark"></span>
+            </label>
+            <label class="container2">Medical
+                <input type="checkbox" name="service_r_item_paid_for[]" class="required" value="Medical"><span class="checkmark"></span>
+            </label>
+            <label class="container2">Others
+                <input type="checkbox" name="service_r_item_paid_for[]" class="required" value="Others"><span class="checkmark"></span>
+            </label>
+            <input type="text" class="form-control" name="service_r_item_paid_for_others">
+        </div>
+
+        <div class="form-group">
+            <label class="questionLabel">Did you pay for anything personally, for which you need to be reimbursed?<span class="error">*</span></label>
+            <label class="container2">Yes
+                <input type="radio" name="reimbursed" value="Yes" class="required"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">No
+                <input type="radio" name="reimbursed" value="No" class="required"><span class="checkmark2"></span>
+            </label>
+        </div>
+      </div>
+
+       <div class="row" id="reimbursementSection" style="display: none;">
+         <h4>Reimbursements</h4>
+         <p>Tell us about the payment so we can reimburse you. Please allow 2 weeks for completion of your reimbursement payment. Be sure to save ALL receipts.</p>
+
+         <div class="form-group">
+            <label class="questionLabel">What was the expense and the purpose? <span class="error">*</span></label>
+            <input type="text" class="form-control required" name="expense_n_purpose">
+        </div>
+
+        <div class="form-group">
+            <label class="questionLabel">What was the exact amount of the expense? <span class="error">*</span></label>
+            <input type="text" class="form-control required" name="amount_of_expense">
+        </div>
+
+        <div class="form-group">
+            <label class="questionLabel">Do you have the receipt? (This is required for reimbursement. Please save it and give to us when you get your refund and/or take a photo and email it to nrahman@shamsaha.org.) <span class="error">*</span></label>
+            <label class="container2">Yes
+                <input type="radio" class="required" name="do_u_have_receipt" value="Yes"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">No
+                <input type="radio" class="required" name="do_u_have_receipt" value="No"><span class="checkmark2"></span>
+            </label>
+        </div>
+       </div>
+     </div>
+
+     <div id="administrativeSection">
+       <div class="row">
+         <h4>Administrative/Other Inquiries</h4>
+         <p>This section is for calls such as volunteer inquiries, questions, or sponsorships.</p>
+         <div class="form-group">
+            <label class="questionLabel">Was this a spam call/chat? <span class="error">*</span></label>
+            <label class="container2">Yes
+                <input type="radio" class="required" name="do_u_have_receipt" value="Yes"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">No
+                <input type="radio" class="required" name="do_u_have_receipt" value="No"><span class="checkmark2"></span>
+            </label>
+              <label class="container2">Maybe
+                <input type="radio" class="required" name="do_u_have_receipt" value="Maybe"><span class="checkmark2"></span>
+            </label>
+        </div>
+         <div class="form-group">
+            <label class="questionLabel">Please tell us the name of the caller.</label>
+            <input type="text" class="form-control" name="name_of_caller" required>
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">Please describe the interaction. <span class="error">*</span></label>
+            <input type="text" class="form-control required" name="desc_interaction" required>
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">Please describe how this call needs to be followed up on. (Did you promise them a call back? Etc) <span class="error">*</span></label>
+            <input type="text" class="form-control required" name="how_call_follow_up" required>
+        </div>
+       </div>
+     </div>
+
+  </div>
+  <div class="tab"> 
+    <div class="row validationReq" >
+       <h4>Case Details</h4>
+         <p>Please provide as much information as possible. And remember to please be available for a call with the case worker in the coming days in order to debrief about the case.</p>
+
+          <div class="form-group">
+            <label class="questionLabel">What type of abuse is she facing? <span class="error">*</span></label>
+            <label class="container2">Physical violence, from intimate partner
+                <input type="radio" class="required" name="abuse_she_face" value="Physical violence, from intimate partner"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Physical violence, from employer
+                <input type="radio" class="required" name="abuse_she_face" value="Physical violence, from employer"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Emotional/psychological/financial violence, from intimate partner
+                <input type="radio" class="required" name="abuse_she_face" value="Emotional/psychological/financial violence, from intimate partner"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Sexual violence, from intimate partner
+                <input type="radio" class="required" name="abuse_she_face" value="Sexual violence, from intimate partner"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Sexual violence from acquaintance (not intimate partner)
+                <input type="radio" class="required" name="abuse_she_face" value="Sexual violence from acquaintance (not intimate partner)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Sexual violence from employer
+                <input type="radio" class="required" name="abuse_she_face" value="Sexual violence from employer"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Sexual violence from stranger
+                <input type="radio" class="required" name="abuse_she_face" value="Sexual violence from stranger"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Other type of family or general violence
+                <input type="radio" class="required" name="abuse_she_face" value="Other type of family or general violence"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Other type of harassment or discrimination
+                <input type="radio" class="required" name="abuse_she_face" value="Other type of harassment or discrimination"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Other type of "non abuse" or "non discrimination" but upset about relationship issues
+                <input type="radio" class="required" name="abuse_she_face" value="Other type of non abuse or non discrimination but upset about relationship issues"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Other
+                <input type="radio" class="required" name="abuse_she_face" value="Other"><span class="checkmark2"></span>
+            </label>
+            <input type="text" class="form-control" name="abuse_she_face_other">
+        </div>
+         <div class="form-group">
+            <label class="questionLabel">Was this interaction for <span class="error">*</span></label>
+            <label class="container2">The caller herself
+                <input type="radio" class="required" name="interaction_for" value="The caller herself"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Somebody else about whom the caller is asking
+                <input type="radio" class="required" name="interaction_for" value="Somebody else about whom the caller is asking"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Other
+                <input type="radio" class="required" name="interaction_for" value="Other"><span class="checkmark2"></span>
+            </label>
+            <input type="text" class="form-control" name="interaction_for_other">
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">What is the relationship of the perpetrator to the victim? <span class="error">*</span></label>
+            <label class="container2">Husband
+                <input type="radio" class="required" name="relationship_of_perpet_to_victim" value="Husband"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Boyfriend
+                <input type="radio" class="required" name="relationship_of_perpet_to_victim" value="Boyfriend"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Ex-husband
+                <input type="radio" class="required" name="relationship_of_perpet_to_victim" value="Ex-husband"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Ex-boyfriend
+                <input type="radio" class="required" name="relationship_of_perpet_to_victim" value="Ex-boyfriend"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Fiance
+                <input type="radio" class="required" name="relationship_of_perpet_to_victim" value="Fiance"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Acquaintance (or date)
+                <input type="radio" class="required" name="relationship_of_perpet_to_victim" value="Acquaintance (or date)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Family member
+                <input type="radio" class="required" name="relationship_of_perpet_to_victim" value="Family member"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Sponsor/Employer
+                <input type="radio" class="required" name="relationship_of_perpet_to_victim" value="Sponsor/Employer"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Stranger
+                <input type="radio" class="required" name="relationship_of_perpet_to_victim" value="Stranger"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Unknown (You should not choose this option often)
+                <input type="radio" class="required" name="relationship_of_perpet_to_victim" value="Unknown (You should not choose this option often)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Not relevant
+                <input type="radio" class="required" name="relationship_of_perpet_to_victim" value="Not relevant"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Other
+                <input type="radio" class="required" name="relationship_of_perpet_to_victim" value="Other"><span class="checkmark2"></span>
+            </label>
+            <input type="text" class="form-control" name="relationship_of_perpet_to_victim_other">
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">Was this the first time, or repeat violence? <span class="error">*</span></label>
+            <label class="container2">First time ever
+                <input type="radio" class="required" name="first_time_r_repeat_violence" value="First time ever"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Repeated violence
+                <input type="radio" class="required" name="first_time_r_repeat_violence" value="Repeated violence"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">I dont know
+                <input type="radio" class="required" name="first_time_r_repeat_violence" value="I dont know"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Not relevant
+                <input type="radio" class="required" name="first_time_r_repeat_violence" value="Not relevant"><span class="checkmark2"></span>
+            </label>
+        </div>
+         <div class="form-group">
+            <label class="questionLabel">Give summary of case and reason for call <span class="error">*</span></label>
+            <input type="text" class="form-control required" name="summary_of_case_n_reason">
+        </div>
+         <div class="form-group">
+            <label class="questionLabel">Did the client state what she would like to do next? If yes, explain. <span class="error">*</span></label>
+            <input type="text" class="form-control required" name="like_to_do_next">
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">Does the client want follow up from Shamsaha? <span class="error">*</span></label>
+            <label class="container2">Yes
+                <input type="radio" class="required" name="client_follow_up" value="Yes"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">No
+                <input type="radio" class="required" name="client_follow_up" value="No"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Not sure (you should not choose this option often)
+                <input type="radio" class="required" name="client_follow_up" value="Not sure (you should not choose this option often)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Not relevant
+                <input type="radio" class="required" name="client_follow_up" value="Not relevant"><span class="checkmark2"></span>
+            </label>
+        </div>
+         <div class="form-group">
+            <label class="questionLabel">Is it safe for Shamsaha? to call her back? <span class="error">*</span></label>
+            <label class="container2">Yes
+                <input type="radio" class="required" name="is_it_safe_to_cal_back" value="Yes"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">No
+                <input type="radio" class="required" name="is_it_safe_to_cal_back" value="No"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">I dont know (you should not choose this option often)
+                <input type="radio" class="required" name="is_it_safe_to_cal_back" value="I dont know (you should not choose this option often)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Not relevant
+                <input type="radio" class="required" name="is_it_safe_to_cal_back" value="Not relevant"><span class="checkmark2"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">Did you give the client information about Shamsaha office hours/location for case work support? <span class="error">*</span></label>
+            <label class="container2">Yes
+                <input type="radio" class="required" name="client_info_abt_ofc_hrs" value="Yes"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">No (If not, explain why in the notes at the end.)
+                <input type="radio" class="required" name="client_info_abt_ofc_hrs" value="No (If not, explain why in the notes at the end.)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Not relevant
+                <input type="radio" class="required" name="client_info_abt_ofc_hrs" value="Not relevant"><span class="checkmark2"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">Did the client display any sign of being suicidal or at risk of harming themselves or others? <span class="error">*</span></label>
+            <label class="container2">No
+                <input type="radio" class="required" name="any_sign_of_suicide_r_harm" value="No"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Yes, and I immediately recommended that they visit any hospital, and informed her of Shamsaha suicide/homicide policy.
+                <input type="radio" class="required" name="any_sign_of_suicide_r_harm" value="Yes, and I immediately recommended that they visit any hospital, and informed her of Shamsaha suicide/homicide policy."><span class="checkmark2"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">Did you discuss or complete a safety plan? <span class="error">*</span></label>
+            <label class="container2">Yes
+                <input type="checkbox" class="required" name="discuss_r_safe_plan" value="Yes"><span class="checkmark"></span>
+            </label>
+            <label class="container2">No (If not, explain why in the notes)
+                <input type="checkbox" class="required" name="discuss_r_safe_plan" value="No (If not, explain why in the notes)"><span class="checkmark"></span>
+            </label>
+            <label class="container2">Not relevant: Not in further danger or administrative type of call
+                <input type="checkbox" class="required" name="discuss_r_safe_plan" value="Not relevant: Not in further danger or administrative type of call"><span class="checkmark"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">Did you make any referrals? If so, list which referrals you made. <span class="error">*</span></label>
+            <input type="text" class="form-control required" name="any_referrals">
+        </div>
+         <div class="form-group">
+            <label class="questionLabel">To the best of your knowledge, what was the client's ethnicity?  <span class="error">*</span></label>
+            <label class="container2">Arab (Bahrain)
+                <input type="radio" class="required" name="client_ethnicity" value="Arab (Bahrain)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Arab (GCC)
+                <input type="radio" class="required" name="client_ethnicity" value="Arab (GCC)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Central Asian (Pakistan, Afghanistan, Bangladesh)
+                <input type="radio" class="required" name="client_ethnicity" value="Central Asian (Pakistan, Afghanistan, Bangladesh)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Indian
+                <input type="radio" class="required" name="client_ethnicity" value="Indian"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">SriLankan
+                <input type="radio" class="required" name="client_ethnicity" value="SriLankan"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">North East Asian (China, Japan, Etc)
+                <input type="radio" class="required" name="client_ethnicity" value="North East Asian (China, Japan, Etc)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">South East Asian (Thailand, Philippines, Indonesian, Etc)
+                <input type="radio" class="required" name="client_ethnicity" value="South East Asian (Thailand, Philippines, Indonesian, Etc)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">North African (Egypt, Sudan, Morocco, Tunisia, Etc)
+                <input type="radio" class="required" name="client_ethnicity" value="North African (Egypt, Sudan, Morocco, Tunisia, Etc)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Sub-Saharan African (Kenya, Ghana, South Africa, Etc)
+                <input type="radio" class="required" name="client_ethnicity" value="Sub-Saharan African (Kenya, Ghana, South Africa, Etc)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">North American (USA, Canada)
+                <input type="radio" class="required" name="client_ethnicity" value="North American (USA, Canada)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">South American/Central American (Mexico, Brazil, Etc)
+                <input type="radio" class="required" name="client_ethnicity" value="South American/Central American (Mexico, Brazil, Etc)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Western Europe (UK, France, Etc)
+                <input type="radio" class="required" name="client_ethnicity" value="Western Europe (UK, France, Etc)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Eastern Europe (Russia, Ukraine, Slovakia, Etc)
+                <input type="radio" class="required" name="client_ethnicity" value="Eastern Europe (Russia, Ukraine, Slovakia, Etc)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Pacific Islander (New Zealand, Australia, Islander)
+                <input type="radio" class="required" name="client_ethnicity" value="Pacific Islander (New Zealand, Australia, Islander)"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Unknown
+                <input type="radio" class="required" name="client_ethnicity" value="Unknown"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Not relevant
+                <input type="radio" class="required" name="client_ethnicity" value="Not relevant"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Other
+                <input type="radio" class="required" name="client_ethnicity" value="Other"><span class="checkmark2"></span>
+            </label>
+            <input type="text" class="form-control" name="client_ethnicity_other">
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">Client age? <span class="error">*</span></label>
+            <label class="container2">13 to 17
+                <input type="radio" class="required" name="client_age" value="13 to 17"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">18 to 25
+                <input type="radio" class="required" name="client_age" value="18 to 25"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">26 to 45
+                <input type="radio" class="required" name="client_age" value="26 to 45"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">45 +
+                <input type="radio" class="required" name="client_age" value="45 +"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">I dont know
+                <input type="radio" class="required" name="client_age" value="I dont know"><span class="checkmark2"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">Client marital status? <span class="error">*</span></label>
+            <label class="container2">Single
+                <input type="radio" class="required" name="marital_status" value="Single"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Married
+                <input type="radio" class="required" name="marital_status" value="Married"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Divorced
+                <input type="radio" class="required" name="marital_status" value="Divorced"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Separated
+                <input type="radio" class="required" name="marital_status" value="Separated"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Widowed
+                <input type="radio" class="required" name="marital_status" value="Widowed"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Engaged
+                <input type="radio" class="required" name="marital_status" value="Engaged"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Unknown
+                <input type="radio" class="required" name="marital_status" value="Unknown"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Other
+                <input type="radio" class="required" name="marital_status" value="Other"><span class="checkmark2"></span>
+            </label>
+            <input type="text" class="form-control" name="marital_status_other">
+        </div>
+         <div class="form-group">
+            <label class="questionLabel">Does the client have children? <span class="error">*</span></label>
+            <label class="container2">Yes
+                <input type="radio" class="required" name="client_have_children" value="Yes"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">No
+                <input type="radio" class="required" name="client_have_children" value="No"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Unknown
+                <input type="radio" class="required" name="client_have_children" value="Unknown"><span class="checkmark2"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">Is the client employed? <span class="error">*</span></label>
+            <label class="container2">Yes
+                <input type="radio" class="required" name="client_employed" value="Yes"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">No
+                <input type="radio" class="required" name="client_employed" value="No"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">I dont know
+                <input type="radio" class="required" name="client_employed" value="I dont know"><span class="checkmark2"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">If the answer to the employment question above is "yes", explain what she does and for whom? <span class="error">*</span></label>
+            <input type="text" class="form-control required" name="what_she_do">
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">If you could recommend care for this client in any language, which would it be? <span class="error">*</span> </label>
+            <label class="container2">English
+                <input type="checkbox" class="required" name="recomment_care[]" value="English"><span class="checkmark"></span>
+            </label>
+            <label class="container2">Arabic
+                <input type="checkbox" class="required" name="recomment_care[]" value="Arabic"><span class="checkmark"></span>
+            </label>
+            <label class="container2">Other
+                <input type="checkbox" class="required" name="recomment_care[]" value="Other"><span class="checkmark"></span>
+            </label>
+            <input type="text" class="form-control" name="recomment_care_other">
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">If this was sexual violence, was any form of penetration made?</label>
+            <label class="container2">Vaginal
+                <input type="radio" class="required" name="penetration_made" value="Vaginal"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Anal
+                <input type="radio" class="required" name="penetration_made" value="Anal"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Penetration was penis
+                <input type="radio" class="required" name="penetration_made" value="Penetration was penis"><span class="checkmark2"></span>
+            </label>
+             <label class="container2">Penetration was object
+                <input type="radio" class="required" name="penetration_made" value="Penetration was object"><span class="checkmark2"></span>
+            </label>
+             <label class="container2">Don't know
+                <input type="radio" class="required" name="penetration_made" value="Don't know"><span class="checkmark2"></span>
+            </label>
+             <label class="container2">Condom was used
+                <input type="radio" class="required" name="penetration_made" value="Condom was used"><span class="checkmark2"></span>
+            </label>
+             <label class="container2">Condom was not used
+                <input type="radio" class="required" name="penetration_made" value="Condom was not used"><span class="checkmark2"></span>
+            </label>            
+             <label class="container2">Don’t know if condom was used
+                <input type="radio" class="required" name="penetration_made" value="Don’t know if condom was used"><span class="checkmark2"></span>
+            </label>
+             <label class="container2">Other
+                <input type="radio" class="required" name="penetration_made" value="Other"><span class="checkmark2"></span>
+            </label>
+             <input type="text" class="form-control" name="penetration_made_other">
+        </div>
+         <div class="form-group">
+            <label class="questionLabel">Has the client involved the police? If yes, describe the situation in the final note section at the end.</label>
+            <label class="container2">Yes, and she has a good experience with the police
+                <input type="radio" class="required" name="client_involved_the_police" value="Yes, and she has a good experience with the police"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Yes, and she had a bad experience with the police
+                <input type="radio" class="required" name="client_involved_the_police" value="Yes, and she had a bad experience with the police"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Yes, her experience with the police was neutral or she didn't describe it
+                <input type="radio" class="required" name="client_involved_the_police" value="Yes, her experience with the police was neutral or she didn't describe it"><span class="checkmark2"></span>
+            </label>
+             <label class="container2">No, she does not want to involve the police
+                <input type="radio" class="required" name="client_involved_the_police" value="No, she does not want to involve the police"><span class="checkmark2"></span>
+            </label>
+             <label class="container2">No, she is scared to involve the police
+                <input type="radio" class="required" name="client_involved_the_police" value="No, she is scared to involve the police"><span class="checkmark2"></span>
+            </label>
+             <label class="container2">No, but she didn't specify why
+                <input type="radio" class="required" name="client_involved_the_police" value="No, but she didn't specify why"><span class="checkmark2"></span>
+            </label>
+             <label class="container2">Don't know
+                <input type="radio" class="required" name="client_involved_the_police" value="Don't know"><span class="checkmark2"></span>
+            </label>  
+             <label class="container2">Other
+                <input type="radio" class="required" name="client_involved_the_police" value="Other"><span class="checkmark2"></span>
+            </label>
+             <input type="text" class="form-control" name="client_involved_the_police_other">
+        </div>
+        <div class="form-group">
+            <label class="questionLabel">How did the caller hear about Shamsaha?</label>
+            <label class="container2">Social media (facebook, Instagram)
+                <input type="radio" class="required" name="hear_about_shamsaha" value="Social media (facebook, Instagram)"><span class="checkmark2"></span>
+            </label>
+             <label class="container2">Brochure or printed material
+                <input type="radio" class="required" name="hear_about_shamsaha" value="Brochure or printed material"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Hospital
+                <input type="radio" class="required" name="hear_about_shamsaha" value="Hospital"><span class="checkmark2"></span>
+            </label>
+            <label class="container2">Friend
+                <input type="radio" class="required" name="hear_about_shamsaha" value="Friend"><span class="checkmark2"></span>
+            </label>
+             <label class="container2">Shamsaha advocate
+                <input type="radio" class="required" name="hear_about_shamsaha" value="Shamsaha advocate"><span class="checkmark2"></span>
+            </label>
+             <label class="container2">Other
+                <input type="radio" class="required" name="hear_about_shamsaha" value="Other"><span class="checkmark2"></span>
+            </label>
+             <label class="container2">I don’t know
+                <input type="radio" name="hear_about_shamsaha" value="I don’t know"><span class="checkmark2"></span>
+            </label>
+        </div>
+    </div>
+  </div>
+
+  <div class="tab">
+    <div class="row" class="validationReq">
+      <h4>Closing and final notes</h4>
+      <p>Please use this section to tell us about your thoughts and feelings, as well as any challenges you had with the case, or any part of the interaction.</p>
+      <div class="form-group">
+            <label class="questionLabel">Your final notes and thoughts about case/client. </label>
+            <input type="text" class="form-control" name="final_notes_n_thought_abt_client" required>
+        </div>
+
+        <div class="form-group">
+            <label class="questionLabel">How were you feeling during your interactions with the client? </label>
+            <input type="text" class="form-control" name="feeling_interaction_with_client" required>
+        </div>
+
+        <div class="form-group">
+            <label class="questionLabel">Please choose any one thing good or bad that you would like us to know about your shift. </label>
+            <input type="text" class="form-control" name="good_r_bad_abt_shift" required>
+        </div>
+    </div>
+    
+  </div>
+ 
+  <div style="overflow:auto;">
+    <div style="float:right;">
+      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+      <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+    </div>
+  </div>
+  <!-- Circles which indicates the steps of the form: -->
+  <div style="text-align:center;margin-top:40px;">
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+  </div>
+</form>
+</div>
+<script>
+var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
+
+function showTab(n) {
+  // This function will display the specified tab of the form...
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+  //... and fix the Previous/Next buttons:
+  x[n].scrollIntoView();
+  if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+  } else {
+    document.getElementById("prevBtn").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("nextBtn").innerHTML = "Submit";
+  } else {
+    document.getElementById("nextBtn").innerHTML = "Next";
+  }
+  //... and run a function that will display the correct step indicator:
+  fixStepIndicator(n)
+}
+
+function nextPrev(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tab");
+  // Exit the function if any field in the current tab is invalid:
+  if (n == 1 && !validateForm()) return false;
+  // Hide the current tab:
+  x[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTab = currentTab + n;
+  // if you have reached the end of the form...
+  if (currentTab >= x.length) {
+    // ... the form gets submitted:
+    document.getElementById("regForm").submit();
+    return false;
+  }
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+}
+
+function validateForm() {
+  // This function deals with validation of the form fields
+  var x, y, i, valid = true;
+  x = document.getElementsByClassName("tab");
+  y = x[currentTab].querySelectorAll("div.validationReq .required");
+
+  // A loop that checks every input field in the current tab:
+  for (i = 0; i < y.length; i++) {
+    var value = y[i].value;
+    if(y[i].type=="radio"){     
+      var value = $('input[name='+y[i].name+']:checked').val();      
+    }
+    if(y[i].type=="checkbox"){     
+      var value =  $('input[name="'+y[i].name+'"]:checked').map(function () {  
+        return this.value;
+        }).get().join(",");     
+    }
+    console.log(y[i].name)
+    // If a field is empty...
+    if (value == "" || value === undefined) {
+      // add an "invalid" class to the field:
+      y[i].className += " invalid";
+      $('input[name="'+y[i].name+'"]').closest('.form-group').addClass('errorContainer')
+      // and set the current valid status to false
+      valid = false;
+    }
+    else{
+       y[i].classList.remove('invalid');
+        $('input[name="'+y[i].name+'"]').closest('.form-group').removeClass('errorContainer')
+    }
+
+  }
+  //valid = true;
+  // If the valid status is true, mark the step as finished and valid:
+  if (valid) {
+    document.getElementsByClassName("step")[currentTab].className += " finish";
+  }
+   document.getElementsByClassName("step")[currentTab].className += " finish";
+  return valid; // return the valid status
+}
+
+function fixStepIndicator(n) {
+  // This function removes the "active" class of all steps...
+  var i, x = document.getElementsByClassName("step");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" active", "");
+  }
+  //... and adds the "active" class on the current step:
+  x[n].className += " active";
+}
+$(document).ready(function(){
+  $("input[name='repeat_client_r_admin_inquiry']").change(function(){
+      if($("input[name='repeat_client_r_admin_inquiry']:checked")){
+        var value = $("input[name='repeat_client_r_admin_inquiry']:checked").val();
+        if(value == 'Repeat client or caller'){
+          $("#administrativeSection").hide();
+          $("#normalSection").show();
+           $("#normalSection1").addClass('validationReq');
+           $("#administrativeSection").removeClass('validationReq');
+        }
+        if(value == 'Administrative inquiry'){
+          $("#normalSection").hide();
+          $("#administrativeSection").show();
+          $("#administrativeSection").addClass('validationReq');
+           $("#normalSection1").removeClass('validationReq');
+        }
+    }
+  });
+
+
+    $("input[name='did_case_req_payment']").change(function(){
+      if($("input[name='did_case_req_payment']:checked")){
+        var value = $("input[name='did_case_req_payment']:checked").val();
+        if(value == 'Yes'){
+          $("#paymentSection").show();
+          $("#paymentSection").addClass('validationReq');
+          var reimbursed = $("input[name='reimbursed']:checked").val();
+          if(reimbursed == 'Yes'){
+            $("#reimbursementSection").show();
+            
+          }
+          else{
+              $("#reimbursementSection").hide();
+          }
+        }
+        if(value == 'No'){
+          $("#paymentSection").removeClass('validationReq');
+          $("#paymentSection").hide();
+          $("#reimbursementSection").hide();
+        }
+    }
+  });
+
+    $("input[name='reimbursed']").change(function(){
+      if($("input[name='reimbursed']:checked")){
+        var value = $("input[name='reimbursed']:checked").val();
+        if(value == 'Yes'){
+          $("#reimbursementSection").show();
+           $("#reimbursementSection").addClass('validationReq');
+        }
+        if(value == 'No'){
+          $("#reimbursementSection").hide();
+           $("#reimbursementSection").removeClass('validationReq');
+        }
+    }
+  });
+
+})
+</script>
+
+
+
+<style>
+  
+
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #eee;
+        }
+        /* On mouse-over, add a grey background color */
+
+        .container2:hover input~.checkmark {
+            background-color: #ccc;
+        }
+        /* When the checkbox is checked, add a blue background */
+
+        .container2 input:checked~.checkmark {
+            background-color: #fa518d;
+        }
+        /* Create the checkmark/indicator (hidden when not checked) */
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        /* Show the checkmark when checked */
+
+        .container2 input:checked~.checkmark:after {
+            display: block;
+        }
+        /* Style the checkmark/indicator */
+
+        .container2 .checkmark:after {
+            left: 9px;
+            top: 5px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+        .container2 {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        /* Hide the browser's default radio button */
+
+        .container2 input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        /* Create a custom radio button */
+
+        .checkmark2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #eee;
+            border-radius: 50%;
+        }
+        /* On mouse-over, add a grey background color */
+
+        .container2:hover input~.checkmark2 {
+            background-color: #ccc;
+        }
+        /* When the radio button is checked, add a blue background */
+
+        .container2 input:checked~.checkmark2 {
+            background-color: #fa518d;
+        }
+        /* Create the indicator (the dot/circle - hidden when not checked) */
+
+        .checkmark2:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        /* Show the indicator (dot/circle) when checked */
+
+        .container2 input:checked~.checkmark2:after {
+            display: block;
+        }
+        /* Style the indicator (dot/circle) */
+
+        .container2 .checkmark2:after {
+                top: 6px;
+                left: 6.5px;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: white;
+                text-align: center;
+                margin: 0 auto;
+        }
+        .error{
+            color: red;
+        }
+        .errorContainer .questionLabel{
+           color: red;
+        }
+  </style>
+
+</body>
+</html>

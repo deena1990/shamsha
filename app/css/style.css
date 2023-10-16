@@ -1,0 +1,132 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+@font-face {
+    font-family: Abjad-Swissra-Heavy;
+    src: local("fonts/Abjad-Swissra-Heavy.otf");
+    src: url("fonts/Abjad-Swissra-Heavy.otf") format("otf"),
+}
+.vhBody{
+    height: 100vh;
+    background-color:var(--pinkColor);
+}
+
+h1, p, h3, h4, h5, h6 {
+    color: var(--whiteColor) !important;
+}
+:root{
+    --yellowColor:#ffc501;
+}
+:root {
+    --pinkColor: #e24484;
+}
+
+:root {
+    --whiteColor: #ffff;
+}
+
+.termSection {}
+
+.logo-shamsa {
+    width: 196px;
+    margin: 0 auto;
+}
+
+.logo-shamsa img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+h1.mainTermHead {
+    font-family: Avenir;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 900;
+/*    text-transform: capitalize;*/
+}
+
+.InterpretionDef {
+    margin-top: 30px;
+}
+
+.Interpretation {
+    margin-top: 20px;
+}
+
+.paraInterpret {
+    font-size: 16px;
+}
+
+.AppSt {
+    font-size: 19px;
+    font-weight: 400;
+}
+
+.ImgDetails img {
+    /* height: 100%; */
+    width: 100%;
+    /* object-fit: cover; */
+    border-radius: 20px 20px 0px 0px;
+}
+
+.ImgDetails {
+    /* height:150px; */
+    margin-top: 10px;
+}
+section.eventDetsils .mainTermHead {
+    margin-bottom: 20px;
+}
+section.eventDetsils {
+    margin-top: 15px;
+}
+.maxWidth {
+    background-color: var(--pinkColor);
+    padding: 10px 0px;
+ 
+}
+.maxWidthyellow{ 
+    background-color: var(--yellowColor);
+    padding: 30px 0px;   
+}
+.parenticon{
+    display: flex;
+    padding-top: 5px;
+}.iconCalender{
+    padding-top: 10px;
+    height: 45px;
+    width: 45px;
+    background-color: var(--pinkColor);
+    text-align: center;
+    margin-right:10px;
+    border-radius:5px;
+}
+.iconCalender i{
+    color: var(--whiteColor);
+    font-size: 25px;
+
+}
+.paraIcon p {
+    color: black !important;
+    padding-top: 10px;
+}
+.rowTimeandDate{
+    background-color: var(--whiteColor);
+    border-radius: 0px 0px 10px 10px;
+    padding: 10px 20px
+}
+.flexParentDateTime{
+    display: flex;
+    justify-content: space-between;
+  
+}
+.contentEventDetails{
+    padding-top: 15px;
+}
+@media (max-width:400px) and (min-width:372px){
+    .paraIcon p{
+        padding-top: 0 !important;
+    }
+}
