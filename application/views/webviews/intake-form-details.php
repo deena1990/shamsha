@@ -86,7 +86,7 @@
     }
 </style>
 <body>
-    <?php if($intake_form_details){ ?>
+    <?php if($intake_form_details){ ?> 
     <div class="container text-center">
         <h3> <strong>Intake Form Details</strong> </h3>
         <div class="form-group">
