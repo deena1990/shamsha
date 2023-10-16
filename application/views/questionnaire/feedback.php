@@ -99,7 +99,7 @@
     <ol class="breadcrumb breadcrumb-2">
 
         <li><a href="<?php echo base_url(); ?>Dashboard"><i class="fa fa-home"></i>Home</a></li>
-        <li><a href="<?php echo base_url(); ?>questionnaire">Questionnaire</a></li>
+        <li><a href="<?php echo base_url(); ?>questionnaire">Intake Form Responses</a></li>
 
         <li>Feedback</li>
 

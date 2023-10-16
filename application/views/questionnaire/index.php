@@ -6,7 +6,7 @@
 
 <div class="main-content">
 
-    <h1 class="page-title">Questionnaire</h1>
+    <h1 class="page-title">Intake Form Responses</h1>
 
     <!-- Breadcrumb -->
 
@@ -14,7 +14,7 @@
 
         <li><a href="<?php echo base_url(); ?>Dashboard"><i class="fa fa-home"></i>Home</a></li>
 
-        <li>Questionnaire</li>
+        <li>Intake Form Responses</li>
 
     </ol>
 
@@ -46,7 +46,7 @@
 
                 <div class="panel-heading clearfix">
 
-                    <h3 class="panel-title">Questionnaire List</h3>
+                    <h3 class="panel-title">Intake Form Responses List</h3>
 
                     <ul class="panel-tool-options" style="display:none;">
 
@@ -76,22 +76,27 @@
 
                                 <th>Case ID</th>
 
-                                <th>What screen name do you want to use?</th>
+                                <!-- <th>What is your name ?</th> -->
+                                <th>Name</th>
 
-                                <th>Are you in crisis?</th>
+                                <!-- <th>Are you in crisis?</th> -->
 
-                                <th>How old are you?</th>
+                                <!-- <th>How old are you?</th> -->
+                                <th>Age</th>
 
-                                <th>What is your gender?</th>
+                                <!-- <th>What is your gender?</th> -->
+                                <th>Gender</th>
 
-                                 <th>Phone Number</th>
+                                <!-- <th>Is it safe to call you back if the line gets disconnected?</th> -->
+                                <th>Call you Back?</th>
 
-                                <th>Is it safe to call you back if the line gets disconnected?</th>
+                                <th>Phone Number</th>
 
-                                <th>What is your race / ethnicity?</th>
+                                <!-- <th>Where are you contacting us from ?</th> -->
+                                <th>Address</th>
 
-                                <th>How did you hear about us?</th>
-                                <th>Action</th>
+                                <!-- <th>How did you hear about us?</th> -->
+                                <!-- <th>Action</th> -->
 
                             </tr>
 
@@ -111,20 +116,20 @@
 
                                     <td><?=$val->screen_name?></td>
 
-                                    <td><?=$val->are_you_in_crisis?></td>
+                                    <!-- <td><?=$val->are_you_in_crisis?></td> -->
 
                                     <td><?=$val->age?></td>
 
                                     <td><?=$val->gender?></td>
 
-                                    <td><?=$val->mobile?></td>
-
                                     <td><?=$val->safe_to_call?></td>
+
+                                    <td><?=$val->mobile?></td>
 
                                     <td><?=$val->race_or_ethnicity?></td>
 
-                                    <td><?=$val->hear_about_us?></td>
-                                    <td><a href="<?=base_url('questionnaire/case_feedback?case_id='.$val->case_id)?>" class="btn btn-primary">Feedback</a></td>
+                                    <!-- <td><?=$val->hear_about_us?></td> -->
+                                    <!-- <td><a href="<?=base_url('questionnaire/case_feedback?case_id='.$val->case_id)?>" class="btn btn-primary">Feedback</a></td> -->
 
                                 </tr>
 
