@@ -13,6 +13,7 @@ class Forgetpass_volenteer extends REST_Controller {
         $this->load->library('email');
         $this->load->model('apis/Forgetpass_voulnteer_model');
         $this->load->helper('email');
+        $this->load->library('FCM');
     }
 
     public function index_post() {
@@ -45,30 +46,39 @@ class Forgetpass_volenteer extends REST_Controller {
             $email = $this->Forgetpass_voulnteer_model->get_voulnteer_email();
             // echo "<pre>";print_r($email->vpassword);die;
             if(!empty($email)){
-            //     $to = $this->input->post('email');
-            //     $subject = 'Forgot Password';
-            //     $message = "<html><body><h2>Forgot Password</h2>
-            //                   <p>Email: $to</p>
-            //                   <p>Password: $email->vpassword</p>
-            //               </body></html>";
+                $to = $this->input->post('email');
+                $subject = 'Forgot Password';
+                $message = "<html><body><h2>Forgot Password</h2>
+                              <p>Email: $to</p>
+                              <p>Password: $email->vpassword</p>
+                          </body></html>";
 
-            //     $sendemail = ci_send_email("info@shamsaha.org",$to,$subject,$message);
-            //     if ($sendemail == "success") 
-            //     {
+                $this->load->config('email');
+                $this->load->library('email');
+                $this->email->from("cyz@gmail.com", "Shamsaha");
+                $this->email->to($to);
+                $this->email->subject($subject);
+                $this->email->message($message);
+                $this->email->set_newline("\r\n");
+                $this->email->send();
+
+                // $sendemail = ci_send_email("info@shamsaha.org",$to,$subject,$message);
+                // if ($sendemail == "success") 
+                // {
                     $data = array(
                         'success' => "true",
                         "message" => $msg5,
                     );
                     
-            //     }
-            //     else
-            //     {   //echo 'Email has been sent successfully';
-            //         $this->email->print_debugger();
-            //         $data = array(
-            //             'status' => "invalid",
-            //             "message" => "Mail not send",
-            //         );
-            //     }
+                // }
+                // else
+                // {   //echo 'Email has been sent successfully';
+                //     $this->email->print_debugger();
+                //     $data = array(
+                //         'status' => "invalid",
+                //         "message" => "Mail not send",
+                //     );
+                // }
             }
             else{
                 // $data = array(
