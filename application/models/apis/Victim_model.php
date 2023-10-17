@@ -81,7 +81,8 @@ class Victim_model extends CI_Model {
     }
 
     function insertNotification($insert){
-        date_default_timezone_set('Asia/Kolkata');
+        date_default_timezone_set('Asia/Kuwait');
+        // date_default_timezone_set('Asia/Kolkata');
         // print_r($insert);die;
         $this->db->insert('wc_notifications',$insert);
     }

@@ -54,7 +54,8 @@ class Conversation_model extends CI_Model {
     }
 
     function victimUpdate(){
-        date_default_timezone_set('Asia/Kolkata');
+        date_default_timezone_set('Asia/Kuwait');
+        // date_default_timezone_set('Asia/Kolkata');
         // print_r(date('Y-m-d H:i:s'));die;
         $this->db->where('case_id', $this->input->post('case_id'));
         $this->db->update('victim', array('chat_opened'=>2, 'chat_end_dateTime'=>date('Y-m-d H:i:s')));

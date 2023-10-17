@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Report Form</title>
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<link rel='shortcut icon' type='<?php echo base_url(); ?>public/image/x-icon' href='images/favicon.ico' />
+<link href="<?php echo base_url(); ?>public/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/bootstrap.min.css">
 <script src="<?php echo base_url(); ?>public/js/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>public/js/bootstrap.min.js"></script>
@@ -78,27 +81,56 @@
     }
     .hide {
         display: none;
+    }.card {
+        padding: 20px;
+        margin: 10px 0 20px 0;
+        background-color: rgba(255, 255, 255, 1);
+        border-top-width: 0;
+        border-bottom-width: 2px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 12px;
+        -webkit-box-shadow: 0px 0px 5px 0px rgba(97,97,97,0.75);
+        -moz-box-shadow: 0px 0px 5px 0px rgba(97,97,97,0.75);
+        box-shadow: 0px 0px 5px 0px rgba(97,97,97,0.75);
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        margin: 100px 20px;
+        /* width:100%; */
+    }
+    .success-fa{
+        text-align: center;
+        display: block;
+        font-size: 70px;
+        color: #e34587;
+    }
+    .card h4{
+        text-align: center;
+        margin-top : 0;
+        font-size: 24px;
+        font-weight: 600;
     }
 
 </style>
 <body>
 <?php if($_GET['success'] == "true"){  ?>
-<div class="container" style="margin-top: 50px">
-    <div class="alert alert-success">
-        <p><strong>Success!</strong> Added successfully !!</p>
-    </div>
+<div class="card">
+    <h3 class="text-center"> <strong>Case Report Form</strong> </h3>
+    <span class="success-fa"><i class="fa fa-check-circle"></i></span>
+    <h4>Form Submitted Successfully !!</h4>
 </div>
 <?php }else{  ?>
     <div class="container">
-            <form id="regForm" action="" method="post">
+            <form id="regForm" method="post">
                 <h3 class="text-center"> <strong>Case Report Form</strong> </h3>
+                <input type="hidden" name="case_id" value="<?= $case_id ?>">
+                <input type="hidden" name="volunteer" value="<?= $volunteer_id ?>">
                 <div class="tab">
                     <div class="row validationReq" id="sec1">
                         <div class="form-group">
                             <label class="questionLabel">What is your name ? <span class="error">*</span> </label>
                             <input type="text" class="form-control required" name="name">
-                            <input type="hidden" name="case_id" value="<?= $case_id ?>">
-                            <input type="hidden" name="volunteer" value="<?= $volunteer_id ?>">
                         </div>
                         <div class="form-group">
                             <label class="questionLabel">What is your phone number ? <span
@@ -694,7 +726,7 @@
                             <label class="questionLabel">يمكنك إضافة أي ملاحظات أخرى باللغة العربية إذا كانت هناك المزيد معلومات تريدين توضيحها أكثر 
                                 <!-- <span class="error">*</span>  -->
                             </label>
-                            <textarea name="additional_information_in_arabic" class="form-control section3" cols="5" rows="5"></textarea>
+                            <textarea name="additional_information_in_arabic" class="form-control" cols="5" rows="5"></textarea>
                         </div>
                     </div>
 
@@ -1008,7 +1040,7 @@ $full_url1 = base_url().'case_report/save_case_report_form';
                     console.log(data);
                     $("#submitBtn").prop('disabled', false);
                     if(data.status == "success"){
-                        window.location.href = '<?php echo "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>'+'&success=true';
+                        window.location.href = '<?php echo str_replace("&success=false","","http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']); ?>'+'&success=true';
                         
 						try {
 							window.webkit.messageHandlers.successfulReport.postMessage(true);

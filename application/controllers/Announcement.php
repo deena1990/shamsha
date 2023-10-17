@@ -190,6 +190,7 @@ class Announcement extends CI_Controller
                             $arrNotification["title"] = $title;
                             $arrNotification["sound"] = "default";
                             $arrNotification["type"] = 4;
+                            $arrNotification["tag"] = 4;
 
                             // echo"<pre>";print_r($volunteers);die;
 

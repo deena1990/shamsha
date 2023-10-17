@@ -48,6 +48,33 @@ class Case_report extends CI_Controller
 
     public function save_case_report_form()
     {   
+        
+        if ($this->input->post('what_type_of_interaction_was_this') == ""){
+            $what_type_of_interaction_was_this = $this->input->post('what_type_of_interaction_was_this');
+        }else{
+            $what_type_of_interaction_was_this = implode(' ::: ',$this->input->post('what_type_of_interaction_was_this'));
+        }
+        $publicly_available_resources = $this->input->post('did_you_provide_any_publicly_available_resources_to_client_r_details_about_Shamsaha’s_operational_partners_in_relevant_country');
+        if ($publicly_available_resources == ""){
+            $available_resources = $publicly_available_resources;
+        }else{
+            $available_resources = implode(' ::: ',$publicly_available_resources);
+        }
+        if ($this->input->post('which_quests_client_respond_yes_during_urgency_assessment') == ""){
+            $how_long_interaction_others = $this->input->post('which_quests_client_respond_yes_during_urgency_assessment');
+        }else{
+            $how_long_interaction_others = implode(' ::: ',$this->input->post('which_quests_client_respond_yes_during_urgency_assessment'));
+        }
+        if ($this->input->post('what_type_of_abuse_she_facing') == ""){
+            $what_type_of_abuse_she_facing = $this->input->post('what_type_of_abuse_she_facing');
+        }else{
+            $what_type_of_abuse_she_facing = implode(' ::: ',$this->input->post('what_type_of_abuse_she_facing'));
+        }
+        if ($this->input->post('type_of_interaction_was') == ""){
+            $type_of_interaction_was = $this->input->post('type_of_interaction_was');
+        }else{
+            $type_of_interaction_was = implode(' ::: ',$this->input->post('type_of_interaction_was'));
+        }
         $what_ethnicity_of_client = $this->input->post('what_ethnicity_of_client');
         if ($what_ethnicity_of_client == "Other"){
             $ethnicity_of_client = $what_ethnicity_of_client.' => '.$this->input->post('what_ethnicity_of_client_other_text');
@@ -99,9 +126,9 @@ class Case_report extends CI_Controller
             'relationship_of_perpet_to_victim'=> $this->input->post('what_relation_of_perpetrator_to_victim'),
             'relationship_of_perpet_to_victim_other'=> $this->input->post('what_relation_of_perpetrator_to_victim_other_text'),
             'interaction_for'=> $this->input->post('was_interaction_for_caller_r_somebody_else'),
-            'abuse_she_face'=> implode(' ::: ',$this->input->post('what_type_of_abuse_she_facing')),
+            'abuse_she_face'=> $what_type_of_abuse_she_facing,
             'how_long_interaction'=> $this->input->post('how_long_was_interaction'),
-            'type_of_call'=> implode(' ::: ',$this->input->post('type_of_interaction_was')),
+            'type_of_call'=> $type_of_interaction_was,
             'type_of_call_other'=> $this->input->post('type_of_interaction_was_other_text'),
             'client_country'=> $this->input->post('countryClient'),
             'client_phone_num'=> $this->input->post('clientCountryCode').':::'.$this->input->post('clientPhone'),
@@ -117,7 +144,7 @@ class Case_report extends CI_Controller
             'shift_u_on'=> $this->input->post('callback3days'),
             'client_last_name'=> $this->input->post('whatIssueReqSupprot'),
             'client_country_other'=> $this->input->post('did_client_answer_yes_to_any_urgency_quest_during_client_interaction'),
-            'how_long_interaction_others'=> implode(' ::: ',$this->input->post('which_quests_client_respond_yes_during_urgency_assessment')),
+            'how_long_interaction_others'=> $how_long_interaction_others,
             'did_case_req_payment'=> $this->input->post('what_steps_were_taken_in_response_to_urgency_ssessment'),
             'service_r_item_paid_for'=> $this->input->post('what_was_discovered_during_risk_analysis'),
             'service_r_item_paid_for_others'=> $this->input->post('was_a_safety_plan_completed_for_any_reason'),
@@ -129,10 +156,10 @@ class Case_report extends CI_Controller
             'benifit_r_by_cash'=> $this->input->post('what_were_circumstances_of_their_request'),
             'client_info_abt_ofc_hrs'=> $this->input->post('how_did_you_get_client_phone_number'),
             'further_details'=> $this->input->post('client_display_any_signs_further_details_text'),
-            'abuse_she_face_other'=> implode(' ::: ',$this->input->post('did_you_provide_any_publicly_available_resources_to_client_r_details_about_Shamsaha’s_operational_partners_in_relevant_country')),
+            'abuse_she_face_other'=> $available_resources,
             'interaction_for_other'=> $this->input->post('language_client_prefer_to_communicate'),
             'like_to_do_next'=> $this->input->post('other_notes_in_arabic'),
-            'perpetrator_access_to_gun'=> $this->input->post('what_type_of_interaction_was_this'),
+            'perpetrator_access_to_gun'=> $what_type_of_interaction_was_this,
             'recomment_care_other'=> $this->input->post('detail_the_interaction'),
             'violence_towards_victim'=> $this->input->post('additional_information'),
             'perpetrator_mem_of_police'=> $this->input->post('additional_information_in_arabic'),

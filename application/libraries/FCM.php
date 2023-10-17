@@ -20,7 +20,7 @@ class FCM {
             foreach($registatoin_ids as $token){
                 $fields['to'] = $token;
                 $fields['notification'] = $notification;
-                $fields['data'] = array('android'=>$json);
+                $fields['tag'] = array('android'=>$json);
                 return $this->fcmCurl($fields);
             }
             

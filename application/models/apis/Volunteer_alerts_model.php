@@ -21,6 +21,7 @@ class Volunteer_alerts_model extends CI_Model {
     }
 
     function get_en_case_alerts(){
+        $data = array();
         $this->db->where('language', 'english');        
         $this->db->where('connection_type', 'chat');        
         $this->db->where('chat_opened', 0);
@@ -48,6 +49,7 @@ class Volunteer_alerts_model extends CI_Model {
     }
 
     function get_ar_case_alerts(){
+        $data = array();
         $this->db->where('language', 'arabic');        
         $this->db->where('connection_type', 'chat');        
         $this->db->where('chat_opened', 0);
@@ -74,12 +76,14 @@ class Volunteer_alerts_model extends CI_Model {
     }
 
     function volResponded($insert){
-        date_default_timezone_set('Asia/Kolkata');
+        date_default_timezone_set('Asia/Kuwait');
+        // date_default_timezone_set('Asia/Kolkata');
         $this->db->insert('volunteer_cases',$insert);
     }
 
     function victimUpdate(){
-        date_default_timezone_set('Asia/Kolkata');
+        date_default_timezone_set('Asia/Kuwait');
+        // date_default_timezone_set('Asia/Kolkata');
         $this->db->where('case_id', $this->input->post('case_id'));
         $this->db->update('victim', array('chat_opened'=>1,'reported_date'=>date('Y-m-d H:i:s')));
     }
@@ -96,7 +100,8 @@ class Volunteer_alerts_model extends CI_Model {
     }
     
     function updateVolunteerCases(){
-        date_default_timezone_set('Asia/Kolkata');
+        date_default_timezone_set('Asia/Kuwait');
+        // date_default_timezone_set('Asia/Kolkata');
         $this->db->where('case_id', $this->input->post('case_id'));
         $this->db->update('volunteer_cases',array('volunteer_id'=>$this->input->post('volunteer_id'), 'attened_date'=>date('Y-m-d H:i:s')));
     }
@@ -123,7 +128,28 @@ class Volunteer_alerts_model extends CI_Model {
         $this->db->update('wc_conversation_details', array('voiceCall_status'=>$this->input->post('action')));
     }
 
+    function getVictimCallConnectingMessages(){
+        $getData = array();
+        $this->db->where('title','Call Connecting');
+        $this->db->where('status', 1);
+        $data = $this->db->get('wc_messages')->result();
+        foreach ($data as $key => $value) {
+            if ($this->input->post('language') == "en"){
+                $getData[] = [
+                    'message' => str_replace("&#39;", "'", str_replace(array("&nbsp;", "\n", "\t", "\r"), " ", strip_tags($value->message_en)))
+                ];
+            }else if ($this->input->post('language') == "ar"){
+                $getData[] = [
+                    'message' => str_replace(array("&nbsp;", "\n", "\t", "\r"), " ", strip_tags($value->message_ar))
+                ];
+            } 
+        }
+        return $getData;
+        
+    }
+
     function getChatWindowAutoResponseMessages(){
+        $getData = array();
         $this->db->where('title','Chat Window');
         $this->db->where('status', 1);
         $data = $this->db->get('wc_messages')->result();
@@ -191,13 +217,15 @@ class Volunteer_alerts_model extends CI_Model {
     }
 
     function insertNotification($insert){
-        date_default_timezone_set('Asia/Kolkata');
+        date_default_timezone_set('Asia/Kuwait');
+        // date_default_timezone_set('Asia/Kolkata');
         // print_r($insert);die;
         $this->db->insert('wc_notifications',$insert);
     }
 
     function updateVictimCaseLangNStatus(){
-        date_default_timezone_set('Asia/Kolkata');
+        date_default_timezone_set('Asia/Kuwait');
+        // date_default_timezone_set('Asia/Kolkata');
         $this->db->where('case_id',$this->input->post('case_id'));
         $this->db->update('victim', array('chat_opened'=>0, 'reported_date'=>null, 'opened_date'=>date('Y-m-d H:i:s'), 'language'=>$this->input->post('new_language'), 'case_assign_by'=>$this->input->post('volunteer_id')));
     }

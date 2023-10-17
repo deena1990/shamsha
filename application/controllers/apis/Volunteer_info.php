@@ -111,7 +111,7 @@ class Volunteer_info extends REST_Controller {
             }else{
                 $result = $this->volunteer_login_model->check_volunteer();
                 if ($result) {
-                    $this->volunteer_login_model->update_user_info(array( 'onduty_status' => 0, 'vol_token_id'=> '' ));
+                    $this->volunteer_login_model->update_user_info(array( 'onduty_status' => 0, 'vol_token_id'=> '', 'device' => '' ));
 
                     //
 

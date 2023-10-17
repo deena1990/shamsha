@@ -304,6 +304,28 @@ class Volunteer_alerts extends REST_Controller {
         $this->response($data, REST_Controller::HTTP_OK);
     }
 
+    public function getVictimCallConnectingMessages_post() {
+        $language = $this->input->post('language');
+        if (empty($language)){
+            $data = array(
+                'success' => "false",
+                "message" => "Please enter language",
+            );
+        }else if ($language != "en" && $language != "ar"){
+            $data = array(
+                'success' => "false",
+                "message" => "Please enter available language ( en, ar )",
+            );
+        }else{
+            $data = array(
+                "success" => "true",
+                "message" => "",
+                "Data" => $this->volunteer_alerts_model->getVictimCallConnectingMessages()
+            );
+        }
+        $this->response($data, REST_Controller::HTTP_OK);
+    }
+
     public function volChatWindowAutoResponseMessages_post() {
         $language = $this->input->post('language');
         if (empty($language)){

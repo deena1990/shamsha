@@ -168,8 +168,9 @@ class Conversation extends REST_Controller {
             }else{
                 $checkCaseExist = $this->Conversation_model->checkCaseExist();
                 if($checkCaseExist>0){
-                    $checkConversationCreated = $this->Conversation_model->checkConversationCreated();
-                    if ($checkConversationCreated>0) {
+                    //$checkConversationCreated = $this->Conversation_model->checkConversationCreated();
+                    $checkConversationCreated = $this->db->get_where('wc_conversation_details',['case_id'=>$this->input->post('case_id')])->num_rows();
+                    if ($checkConversationCreated!=0) {
                         
                         $get_data = $this->db->get_where('wc_conversation_details',['case_id'=>$this->input->post('case_id')])->row();
                         if($get_data->reassign_number==null){

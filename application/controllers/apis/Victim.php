@@ -146,7 +146,8 @@ class Victim extends REST_Controller {
 	}
 
     public function save_intake_form_post(){
-        date_default_timezone_set('Asia/Kolkata');
+        date_default_timezone_set('Asia/Kuwait');
+        // date_default_timezone_set('Asia/Kolkata');
         $language = $this->input->post('language');
         $conn_language = $this->input->post('conn_language');
         $device_id = $this->input->post('device_id');
