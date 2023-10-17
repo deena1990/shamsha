@@ -40,19 +40,25 @@
                     <?php //echo form_open('User/add'); ?>
                     <form name="add"   method="POST" action="<?php echo base_url();?>resource_location/add" enctype="multipart/form-data">
                         <div class="row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="location_name">Country Name (English)</label>
                                 <input type="text" class="form-control" name="location_name" value="<?php echo set_value('location_name') ?>">
                                 <span style="color: red"><?php echo form_error('location_name'); ?></span>
 
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="location_name_ar">Country Name (Arabic)</label>
                                 <input type="text" class="form-control" name="location_name_ar" value="<?php echo set_value('location_name_ar') ?>">
                                 <span style="color: red"><?php echo form_error('location_name_ar'); ?></span>
 
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
+                                <label for="country_code">Country Code</label>
+                                <input type="text" class="form-control" name="country_code" value="<?php echo set_value('country_code') ?>">
+                                <span style="color: red"><?php echo form_error('country_code'); ?></span>
+
+                            </div>
+                            <div class="form-group col-md-6">
                                 <label for="sel1">Status</label>
                                 <select class="form-control" name="status">
                                     <option value="Active" <?php echo set_select('status', "Active"); ?>>Active</option>

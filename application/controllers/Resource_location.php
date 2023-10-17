@@ -38,18 +38,20 @@ class Resource_location extends CI_Controller {
             {
                 $data['location_name'] = $this->input->post('location_name');
                 $data['location_name_ar'] = $this->input->post('location_name_ar');
+                $data['country_code'] = $this->input->post('country_code');
                 $data['status'] = $this->input->post('status');
                 //$job_code = $this->input->post('job_code');
                 $this->form_validation->set_data($data);
                 $this->form_validation->set_rules('location_name', 'Country Name (English)', 'trim|required');
                 $this->form_validation->set_rules('location_name_ar', 'Country Name (Arabic)', 'trim|required');
+                $this->form_validation->set_rules('country_code', 'Country Code', 'trim|required');
                 $this->form_validation->set_rules('status', 'Status', 'trim|required');
                 $imgVal = true;
 
                 if (($this->form_validation->run() == true)) {
                     $insert = $this->resource_location_model->add($data);
                     if($insert){
-                        $this->session->set_flashdata('msg',"Country has been added successfully");
+                        $this->session->set_flashdata('msg',"Resource Country has been added successfully !!");
                         $base_url=base_url();
                         redirect("$base_url"."resource_location");
                     }
@@ -78,11 +80,13 @@ class Resource_location extends CI_Controller {
             {
                 $data['location_name'] = $this->input->post('location_name');
                 $data['location_name_ar'] = $this->input->post('location_name_ar');
+                $data['country_code'] = $this->input->post('country_code');
                 $data['status'] = $this->input->post('status');
                 //$job_code = $this->input->post('job_code');
                 $this->form_validation->set_data($data);
                 $this->form_validation->set_rules('location_name', 'Country Name (English)', 'trim|required');
                 $this->form_validation->set_rules('location_name_ar', 'Country Name (Arabic)', 'trim|required');
+                $this->form_validation->set_rules('country_code', 'Country Code', 'trim|required');
                 $this->form_validation->set_rules('status', 'Status', 'trim|required');
                 $imgVal = true;
 
@@ -91,7 +95,7 @@ class Resource_location extends CI_Controller {
                     $data['wcrid'] = $id;
                     $insert = $this->resource_location_model->update($data);
                     if($insert){
-                        $this->session->set_flashdata('msg',"Country Updated successfully");
+                        $this->session->set_flashdata('msg',"Resource Country updated successfully !!");
                         $base_url=base_url();
                         redirect("$base_url"."resource_location");
                     }
@@ -114,7 +118,7 @@ class Resource_location extends CI_Controller {
     {
         if( can('delete-resource_country') ) {
             if($this->resource_location_model->delete($id)){
-                $this->session->set_flashdata('msg',"Deleted successfully");
+                $this->session->set_flashdata('msg',"Resource Country deleted successfully !!");
             }
             redirect(base_url()."resource_location");
         }

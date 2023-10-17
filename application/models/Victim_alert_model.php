@@ -12,6 +12,7 @@ class victim_alert_model extends CI_Model
 
     function get_allvictimalerts()
     {
+        $this->db->order_by('id','desc');
         return $this->db->get('wc_victim_alerts')->result();
     }
 
