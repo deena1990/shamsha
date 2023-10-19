@@ -11,9 +11,11 @@ class Vol_status_update_model extends CI_Model {
     }
 
     function save_vol_status(){
+        date_default_timezone_set('Asia/Kuwait');
         $data = [
             'volunteer_id' => $this->input->post('volunteer_id'),
-            'onduty_status' => $this->input->post('status')
+            'onduty_status' => $this->input->post('status'),
+            'dateTime' => date('Y-m-d H:i:s')
         ];
         $this->db->insert('vol_onduty_status', $data);
         $data1 = [

@@ -111,9 +111,12 @@ class Volunteer_info extends REST_Controller {
             }else{
                 $result = $this->volunteer_login_model->check_volunteer();
                 if ($result) {
-                    $this->volunteer_login_model->update_user_info(array( 'onduty_status' => 0, 'vol_token_id'=> '', 'device' => '' ));
-
+                    $volOndutyStatus = $this->volunteer_login_model->getVolOndutyStatus();
+                    if ($volOndutyStatus == 1){
+                        $this->volunteer_login_model->insertOndutyStatus();
+                    }
                     //
+                    $this->volunteer_login_model->update_user_info();
 
 
                     if(date("Y-m-d") > $this->volunteer_login_model->getMailDate()){

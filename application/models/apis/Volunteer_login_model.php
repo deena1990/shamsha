@@ -149,9 +149,20 @@ class Volunteer_login_model extends CI_Model {
         return $this->db->where('vounter_id',$this->input->post('volunteer_id'))->get('wc_voulnteer')->row()->profile_pic;
     }
 
-    function update_user_info($update){
+    function update_user_info(){
         $this->db->where('vounter_id',$this->input->post('volunteer_id'));
-        $this->db->update('wc_voulnteer',$update);
+        $this->db->update('wc_voulnteer',array( 'onduty_status' => 0, 'vol_token_id'=> '', 'device' => '' ));
+        
+    }
+
+    function getVolOndutyStatus(){
+        $this->db->where('vounter_id',$this->input->post('volunteer_id'));
+        return $this->db->get('wc_voulnteer')->row()->onduty_status;
+    }
+
+    function insertOndutyStatus(){
+        date_default_timezone_set('Asia/Kuwait');
+        $this->db->insert('vol_onduty_status',array( 'volunteer_id' => $this->input->post('volunteer_id'), 'onduty_status'=> 0, 'dateTime' => date('Y-m-d H:i:s') ));
         
     }
 

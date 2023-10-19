@@ -30,7 +30,7 @@ class Get_involved extends REST_Controller {
                     'success' => "true",
                     "message" => "",
                 );
-                if ($language == "en"){ $title = $result->title_en; $heading = $result->content_en; $content1 = $result->contact; $content2 = $result->google_map; $content3 = $result->address; $act_title = $result->ar_helpline; $act_content = $result->latitude; $vol_title = $result->email; $vol_content = $result->longitude; $gift_title = $result->facebook; $gift_content = $result->twitter; }
+                if ($language == "en"){ $title = $result->title_en; $heading = $result->content_en; $content1 = str_replace("amp;","",$result->contact); $content2 = $result->google_map; $content3 = $result->address; $act_title = $result->ar_helpline; $act_content = $result->latitude; $vol_title = $result->email; $vol_content = $result->longitude; $gift_title = $result->facebook; $gift_content = $result->twitter; }
                 if ($language == "ar"){ $title = $result->title_ar; $heading = $result->content_ar; $content1 = $result->linkden; $content2 = $result->website; $content3 = $result->instagram; $act_title = $result->vision_en; $act_content = $result->vision_ar; $vol_title = $result->ab_values_en; $vol_content = $result->ab_values_ar; $gift_title = $result->service_en; $gift_content = $result->service_ar; }
                 $data['Data'] = array(
                     'title' => $title,

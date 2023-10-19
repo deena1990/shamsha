@@ -224,6 +224,12 @@ class Webview extends CI_Controller
         return $this->load->view('webviews/feedback-form-success');
     }
 
+    public function announcement_details(){
+        $data['announce_details'] = $this->feedback_model->getAnnounceDetails();
+        // print_r($data);die;
+        return $this->load->view('webviews/announce-details', $data);
+    }
+
     
     public function shortcasereport(){
         if ($this->input->server('REQUEST_METHOD') == 'POST'){

@@ -8,11 +8,9 @@
             <!-- Breadcrumb -->
             <ol class="breadcrumb breadcrumb-2">
                 <li><a href="<?php echo base_url(); ?>Dashboard"><i class="fa fa-home"></i>Home</a></li>
-                <li>Case Report</li>
+                <li><a href="<?php echo base_url(); ?>case_report">Case Reports</a></li>
+                <li><strong>Case Report Details</strong></li>
             </ol>
-        </div>
-        <div class="col-md-6 text-right">
-            <a class="btn btn-primary" href="<?php echo base_url(); ?>case_report">Back</a>
         </div>
     </div>
     <?php if($this->session->flashdata('msg')) { ?>
@@ -75,7 +73,7 @@
                             </div>
                             <div class="col-md-6">
                                 <h4><b>What is your phone number?</b></h4>
-                                <p><?= $cr_report->mobile ?></p>
+                                <p><?= "( ".explode(":::", $cr_report->mobile)[0]." ) ".explode(":::", $cr_report->mobile)[1] ?></p>
                             </div>
                         </div>
 
@@ -153,14 +151,14 @@
                             </div>
                             <div class="col-md-6">
                                 <h4><b>What was the client’s phone number ?</b></h4>
-                                <p><?= $cr_report->caller_phone_num ?></p>
+                                <p><?= "( ".explode(":::", $cr_report->caller_phone_num)[0]." ) ".explode(":::", $cr_report->caller_phone_num)[1] ?></p>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <h4><b>What type of interaction was this ?</b></h4>
-                                <p><?= $cr_report->type_of_call.' => '.$cr_report->type_of_call_other ?></p>
+                                <p><?php if (strpos($cr_report->type_of_call, 'Other') === true) { echo $cr_report->type_of_call.' => '.$cr_report->type_of_call_other; }else{ echo $cr_report->type_of_call; } ?></p>
                             </div>
                             <div class="col-md-6">
                                 <h4><b>How long was the interaction ?</b></h4>
@@ -212,7 +210,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <h4><b>Which question did the client respond yes to during the Urgency Assessment ?</b></h4>
-                                    <p><?= $cr_report->how_long_interaction_others ?></p>
+                                    <p><?php foreach (explode(" ::: ", $cr_report->how_long_interaction_others) as $key => $value) { echo $value."<br>"; } ?></p>
                                 </div>
                                 <div class="col-md-6">
                                     <h4><b>What steps were taken in response to the Urgency Assessment?</b></h4>

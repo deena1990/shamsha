@@ -63,19 +63,45 @@ class Conversation extends REST_Controller {
 
                         $volunteers = $this->Conversation_model->get_case_victim();
                         // print_r($volunteers);die;
+                        $title = "Chat Connected !!";
                         $msg = "You are entered in Chat Room successfully.";
                         $arrNotification = array();
                         $arrNotification["body"] = $msg;
-                        $arrNotification["title"] = "Chat Connected !!";
+                        $arrNotification["title"] = $title;
                         $arrNotification["sound"] = "default";
-                        $arrNotification["type"] = 1;
+                        $arrNotification["type"] = 5;
+                        $arrNotification["tag"] = 5;
                         
                         if (count($volunteers['android']) > 0) {
-                            $this->fcm->send_notification($volunteers['android'], $arrNotification, 'Android', true);
+                            // print_r($volunteers['android_user_id']);die;
+                            foreach ($volunteers['android_user_id'] as $key => $value) {
+                                // echo"<pre>";print_r($value);die;
+                                $android_notification_Data = array(
+                                                    'user_id' => $value,
+                                                    'title' => $title,
+                                                    'message' => $msg,
+                                                    'type' => 5,
+                                                    'dateTime' => date('Y-m-d H:i:s')
+                                                    );
+                                $this->Conversation_model->insertNotification($android_notification_Data);
+                            }
+                            $this->fcm->send_notification($volunteers['android'], $arrNotification, 'Android', true, 5);
                         }
 
                         if (count($volunteers['ios']) > 0) {
-                            $this->fcm->send_notification($volunteers['ios'], $arrNotification, 'iOS', true);
+                            // print_r($volunteers['ios_user_id']);die;
+                            foreach ($volunteers['ios_user_id'] as $key => $value) {
+                                // echo"<pre>";print_r($value);die;
+                                $ios_notification_Data = array(
+                                                    'user_id' => $value,
+                                                    'title' => $title,
+                                                    'message' => $msg,
+                                                    'type' => 5,
+                                                    'dateTime' => date('Y-m-d H:i:s')
+                                                    );
+                                $this->Conversation_model->insertNotification($ios_notification_Data);
+                            }
+                            $this->fcm->send_notification($volunteers['ios'], $arrNotification, 'iOS', true, 5);
                         }
 
                         // notification code end here
@@ -233,6 +259,54 @@ class Conversation extends REST_Controller {
                 $checkConversationCreated = $this->Conversation_model->checkConversationCreated();
                 if ($checkConversationCreated>0) {
                     $this->Conversation_model->victimUpdate();
+
+                    // notification code start from here
+
+                    $volunteers = $this->Conversation_model->get_volunteer($this->input->post('volunteer_id'));
+                    // print_r($volunteers);die;
+                    $title = "Chat Disconnected !!";
+                    $msg = "Victim has exited chat please submit case report";
+                    $arrNotification = array();
+                    $arrNotification["body"] = $msg;
+                    $arrNotification["title"] = $title;
+                    $arrNotification["sound"] = "default";
+                    $arrNotification["type"] = 6;
+                    $arrNotification["tag"] = 6;
+                    
+                    if (count($volunteers['android']) > 0) {
+                        // print_r($volunteers['android_user_id']);die;
+                        foreach ($volunteers['android_user_id'] as $key => $value) {
+                            // echo"<pre>";print_r($value);die;
+                            $android_notification_Data = array(
+                                                'user_id' => $value,
+                                                'title' => $title,
+                                                'message' => $msg,
+                                                'type' => 6,
+                                                'dateTime' => date('Y-m-d H:i:s')
+                                                );
+                            $this->Conversation_model->insertNotification($android_notification_Data);
+                        }
+                        $this->fcm->send_notification($volunteers['android'], $arrNotification, 'Android', true, 6);
+                    }
+
+                    if (count($volunteers['ios']) > 0) {
+                        // print_r($volunteers['ios_user_id']);die;
+                        foreach ($volunteers['ios_user_id'] as $key => $value) {
+                            // echo"<pre>";print_r($value);die;
+                            $ios_notification_Data = array(
+                                                'user_id' => $value,
+                                                'title' => $title,
+                                                'message' => $msg,
+                                                'type' => 6,
+                                                'dateTime' => date('Y-m-d H:i:s')
+                                                );
+                            $this->Conversation_model->insertNotification($ios_notification_Data);
+                        }
+                        $this->fcm->send_notification($volunteers['ios'], $arrNotification, 'iOS', true, 6);
+                    }
+
+                    // notification code end here
+
                     $data = array(
                         "success" => "true",
                         "message" => $msg3,

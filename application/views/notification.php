@@ -58,8 +58,8 @@
 											<td><?php echo ++$j;?></td>
 											<td><?php echo $notifications[$i]->user_id;?></td>
 											<td><?php foreach(str_split($notifications[$i]->title,25) as $val){ echo $val."<br>"; } ?></td>
-											<td><?php foreach(str_split($notifications[$i]->message,25) as $val){ echo $val."<br>"; } ?></td>
-											<td><?php $type = $notifications[$i]->type; if($type == 1){ echo "Chat Initiate";}else if($type == 2){ echo "Voice Call";}else if($type == 3){ echo "Video Call";}else if($type == 4){ echo "Announcement";} ?></td>
+											<td><?php foreach(str_split($notifications[$i]->message,29) as $val){ echo $val."<br>"; } ?></td>
+											<td><?php $type = $notifications[$i]->type; if($type == 1){ echo "Chat Initiate";}else if($type == 2){ echo "Voice Call";}else if($type == 3){ echo "Video Call";}else if($type == 4){ echo "Announcement";}else if($type == 5){ echo "Chat Connect";}else if($type == 6){ echo "Chat Disconnect";} ?></td>
                                             <td><?php echo $notifications[$i]->dateTime;?></td>
                                         </tr>
 										<?php } ?>

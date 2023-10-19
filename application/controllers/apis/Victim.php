@@ -122,8 +122,25 @@ class Victim extends REST_Controller {
 		$sql = $this->db->get_where('wc_conversation_details',['voiceCall_status'=>1]);
 		if($sql->num_rows()!=0){
 		    $row = $sql->row();
-		    $result = $row->case_id;
-		    $caller = $row->volunteer_id;
+		     $voiceCall_from = $row->voiceCall_from;
+		    if($voiceCall_from==1){
+		        $result = $row->case_id;
+		        if($row->reassign_volunteer_id==""){
+		            $caller = $row->volunteer_id;
+		        }else{
+		            $caller = $row->reassign_volunteer_id;
+		        }
+		        
+		    }else{
+		        if($row->reassign_volunteer_id==""){
+		            $result = $row->volunteer_id;
+		        }else{
+		            $result = $row->reassign_volunteer_id;
+		        }
+		        
+		        $caller = $row->case_id;
+		    }
+		    
 		}else{
 		    $result = "NULL";
 		    $caller = "NULL";
