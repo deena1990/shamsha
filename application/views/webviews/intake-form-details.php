@@ -89,32 +89,41 @@
     <?php if($intake_form_details){ ?> 
     <div class="container text-center">
         <h3> <strong>Intake Form Details</strong> </h3>
+        <?php if ($intake_form_details['screen_name']){ ?>
         <div class="form-group">
             <label class="questionLabel">What is your name ? </label>
             <p class="answerQuest"><?= ucfirst($intake_form_details['screen_name']) ?></p>
         </div>
+        <?php } if ($intake_form_details['age']){ ?>
         <div class="form-group">
             <label class="questionLabel">How old are you ?  </label>
             <p class="answerQuest"><?= $intake_form_details['age']." Years" ?></p>
-        </div>
+        </div>        
+        <?php } if ($intake_form_details['gender']){ ?>
         <div class="form-group">
             <label class="questionLabel">What is your gender ? </label>
             <p class="answerQuest"><?= ucfirst($intake_form_details['gender']) ?></p>
         </div>
+        <?php } if ($intake_form_details['safe_to_call']){ ?>
         <div class="form-group">
             <label class="questionLabel">Is it safe to call you back if the line gets disconnected ? </label>
             <p class="answerQuest"><?= ucfirst($intake_form_details['safe_to_call']) ?></p>
         </div>
+        <?php } ?>  
         <?php if(strtolower($intake_form_details['safe_to_call']) == "yes"){ ?>
+        <?php if ($intake_form_details['mobile']){ ?>
         <div class="form-group">
             <label class="questionLabel">What is phone munber ? </label>
             <p class="answerQuest"><?= $intake_form_details['mobile'] ?></p>
         </div>
         <?php } ?> 
+        <?php } ?>  
+        <?php if ($intake_form_details['race_or_ethnicity']){ ?>
         <div class="form-group">
             <label class="questionLabel">Where are you contacting us from ? </label>
             <p class="answerQuest"><?= $intake_form_details['race_or_ethnicity'] ?></p>
         </div>
+        <?php } ?>  
     </div>
     <?php } else { ?> 
     <div class="container text-center">

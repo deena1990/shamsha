@@ -37,7 +37,7 @@ class Volunteer_forgot_password extends REST_Controller {
         }else{
 			//savas return it back if needed
             $password = rand(10,99999999);
-            $result = 1//$this->volunteer_login_model->send_new_data($password);
+            $result = 1;//$this->volunteer_login_model->send_new_data($password);
            // print($result);
             if($result==1){
         		$to = $this->input->post('email');
@@ -66,7 +66,7 @@ class Volunteer_forgot_password extends REST_Controller {
     		       $data = array(
                     'status' => "invalid",
                     "message" => "Mail not send",
-                );
+                    );
 		           // show_error($this->email->print_debugger());
 		        }
             }else{

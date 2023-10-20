@@ -19,9 +19,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="eventDetail">
-                            <div class="logo-shamsa">
+                            <!-- <div class="logo-shamsa">
                                 <img src="img/logo-(2).jpg" alt="">
-                            </div>
+                            </div> -->
                             
 
                         </div>

@@ -961,6 +961,7 @@ class Victim extends REST_Controller {
                     $arrNotification["sound"] = "default";
                     $arrNotification["type"] = 3;
                     $arrNotification["tag"] = 3;
+                    $arrNotification["color"] = $this->post('case_id');
                     
                     if (count($volunteers['android']) > 0) {
                         // print_r($volunteers['android_user_id']);die;

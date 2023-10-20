@@ -10,7 +10,7 @@ class Forgetpin_victim_model extends CI_Model {
         $this->db->select("pin");
         $this->db->where(array( 'device_id' => $this->input->post('deviceid'), 'status' => 'Active' ));
         $qry = $this->db->get('wc_victim');
-        if($qry->row() !='')
+        if($qry->row() != '')
         {
             return $qry->row()->pin;
         }

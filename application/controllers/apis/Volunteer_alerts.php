@@ -440,6 +440,7 @@ class Volunteer_alerts extends REST_Controller {
                         $arrNotification["title"] = $title;
                         $arrNotification["sound"] = "default";
                         $arrNotification["type"] = 1;
+                        $arrNotification["tag"] = 1;
                         
                         if (count($volunteers['android']) > 0) {
                             // print_r($volunteers['android_user_id']);die;

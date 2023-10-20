@@ -61,9 +61,9 @@
 			<div class="row">
 				<div class="hospital-details justify-content-center">
 				
-						<div class="logo-shamsa">
+						<!-- <div class="logo-shamsa">
 							<img src="img/logo-(2).jpg" alt="">
-						</div>
+						</div> -->
 						
 						<h3 class="heading"><?= $resource_type ?></h3>
 				

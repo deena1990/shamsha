@@ -27,8 +27,8 @@ class Home extends REST_Controller {
                 'lan'=>$language
             );
         }else{
-            if ($language == "en"){ $msg = "Data not found"; $heading1 = strip_tags($result->title_en); $content1 = strip_tags($result->content_en); $heading2 = strip_tags($result->vision_en); $content2 = strip_tags($result->service_en); }
-            if ($language == "ar"){ $msg = "لم يتم العثور على بيانات"; $heading1 = strip_tags($result->title_ar); $content1 = strip_tags($result->content_ar); $heading2 = strip_tags($result->vision_ar); $content2 = strip_tags($result->service_ar); }
+            if ($language == "en"){ $msg = "Data not found"; $heading1 = strip_tags($result->title_en); $content1 = str_replace(array("&nbsp;", "\n", "\t", "\r"), " ", strip_tags($result->content_en)); $heading2 = strip_tags($result->vision_en); $content2 = str_replace(array("&nbsp;", "\n", "\t", "\r"), " ", strip_tags($result->service_en)); }
+            if ($language == "ar"){ $msg = "لم يتم العثور على بيانات"; $heading1 = strip_tags($result->title_ar); $content1 = str_replace(array("&nbsp;", "\n", "\t", "\r"), " ", strip_tags($result->content_ar)); $heading2 = strip_tags($result->vision_ar); $content2 = str_replace(array("&nbsp;", "\n", "\t", "\r"), " ", strip_tags($result->service_ar)); }
             if ($result) {
                 $data = array(
                     'success' => 'true',

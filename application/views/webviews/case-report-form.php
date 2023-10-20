@@ -136,16 +136,18 @@
                             <label class="questionLabel">What is your phone number ? <span
                                         class="error">*</span></label>
                             <div class="row">
-                                <div class="col-md-3">
-                                    <label for="date">Country Code</label>
+                                <div class="col-md-3 col-xs-6">
+                                    <label for="date">Country Code  <span
+                                        class="error">*</span></label>
                                     <select name="countryCode" class="form-control required">
                                         <?php foreach($phone_codes as $phone_code){ ?>
                                         <option value="<?= $phone_code->phonecode ?>"><?= $phone_code->phonecode ?> ( <?= $phone_code->nicename ?> ) </option>
                                         <?php } ?>
                                     </select>
                                 </div>
-                                <div class="col-md-9">
-                                    <label for="date">Phone Number</label>
+                                <div class="col-md-9 col-xs-6">
+                                    <label for="date">Phone Number  <span
+                                        class="error">*</span></label>
                                     <input type="number" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" maxlength="12" class="form-control required" name="phoneNumber">
                                 </div>
                             </div>
@@ -162,13 +164,15 @@
                         <div class="form-group">
                             <label class="questionLabel">At what date and time did you receive the interaction? <span
                                         class="error">*</span></label>
-                            <div class="">
-                                <div class="">
-                                    <label for="date">Date</label>
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6">
+                                    <label for="date">Date <span
+                                        class="error">*</span></label>
                                     <input type="date" class="form-control required" name="date" value="<?php echo date('Y-m-d'); ?>">
                                 </div>
-                                <div class="">
-                                    <label for="time">Time</label>
+                                <div class="col-md-6 col-xs-6">
+                                    <label for="time">Time <span
+                                        class="error">*</span></label>
                                     <input type="time" class="form-control required" name="time" value="<?php echo date('h:i'); ?>">
                                 </div>
                             </div>
@@ -244,16 +248,18 @@
                             <label class="questionLabel"> What was the client’s phone number ? <span
                                         class="error">*</span></label>
                             <div class="row">
-                                <div class="col-md-3">
-                                    <label for="date">Country Code</label>
+                                <div class="col-md-3 col-xs-6">
+                                    <label for="date">Country Code <span
+                                        class="error">*</span></label>
                                     <select name="clientCountryCode" class="form-control required">
                                         <?php foreach($phone_codes as $phone_code){ ?>
                                         <option value="<?= $phone_code->phonecode ?>"><?= $phone_code->phonecode ?> ( <?= $phone_code->nicename ?> ) </option>
                                         <?php } ?>
                                     </select>
                                 </div>
-                                <div class="col-md-9">
-                                    <label for="date">Phone Number</label>
+                                <div class="col-md-9 col-xs-6">
+                                    <label for="date">Phone Number <span
+                                        class="error">*</span></label>
                                     <input type="number" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" maxlength="12" class="form-control required" name="clientPhone">
                                 </div>
                             </div>
